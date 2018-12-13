@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Demo Socket IO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="jquery-3.3.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io('http://localhost:3000');
+
+            $(document).ready(function(){
+
+                socket.on('Server-send-data', (data) => {
+                     $('body').css({'background-color': data});
+                });
+
+                $("#red").click(function() {
+                    socket.emit('Client-send-data', 'red');
+                });
+
+                $("#blue").click(function() {
+                    socket.emit('Client-send-data', 'blue');
+                });
+
+                $("#yellow").click(function() {
+                    socket.emit('Client-send-data', 'yellow');
+                });
+            })
+        </script>
+        <style>
+            div {margin: auto; width: 300px; height: 100px;}
+            #red {background-color: red;}
+            #blue {background-color: blue;}
+            #yellow {background-color: yellow;}
+        </style>
+    </head>
+    <body>
+        <div id="red"></div>
+        <div id="blue"></div>
+        <div id="yellow"></div>
+    </body>
+</html>
